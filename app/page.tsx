@@ -1,8 +1,8 @@
 import Image from "next/image";
-import Header from "@/components/Header";
-import Navbar from "@/components/Navbar";
+import Header from "@/app/RatingCard/Header";
+import Navbar from "@/app/RatingCard/Navbar";
 import RatingCard from "@/components/RatingCard";
-import Footer from "@/components/Footer";
+import Footer from "@/app/RatingCard/Footer";
 
 
 export default function Home() {
