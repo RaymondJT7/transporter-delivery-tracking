@@ -1,6 +1,3 @@
-// Antonie Potgieter
-// Design by Cione Botha
-
 "use client";
 
 import Image from "next/image";
@@ -12,10 +9,10 @@ export default function LoginPage() {
     <main className="relative min-h-screen overflow-hidden bg-black text-white flex items-center justify-center px-6 py-10">
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#7e22ce_0%,#1a052e_35%,#000_75%)] opacity-90" />
 
-      <section className="relative z-10 w-full max-w-md rounded-4xl border border-purple-500/40 bg-black/70 p-8 shadow-[0_0_70px_rgba(236,72,153,0.45)] backdrop-blur">
+      <section className="relative z-10 w-full max-w-md rounded-[2rem] border border-purple-500/40 bg-black/70 p-8 shadow-[0_0_70px_rgba(236,72,153,0.45)] backdrop-blur">
         <div className="flex justify-center">
           <Image
-            src="/LogiTrackLogo.png"
+            src="/logo.png"
             alt="LogiTrack Logo"
             width={260}
             height={160}
@@ -60,7 +57,7 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full rounded-2xl bg-linear-to-r from-[#8B5CF6] to-[#EC4899] py-4 text-xl font-bold shadow-[0_0_35px_rgba(236,72,153,0.7)] transition hover:scale-105"
+            className="w-full rounded-2xl bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] py-4 text-xl font-bold shadow-[0_0_35px_rgba(236,72,153,0.7)] transition hover:scale-105"
           >
             Log In
           </button>
@@ -78,7 +75,7 @@ export default function LoginPage() {
 
         <p className="mt-8 text-center text-sm text-gray-300">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="font-bold text-pink-400">
+          <Link href="/Register" className="font-bold text-pink-400">
             Sign Up!
           </Link>
         </p>

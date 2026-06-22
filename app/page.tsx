@@ -3,7 +3,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import RegisterPage from "./register/page";
+import RegisterPage from "./Register/page";
 import LoginPage from "./login/page";
 
 export default function Home() {
@@ -21,7 +21,7 @@ export default function Home() {
       <img src="/HomepagePic1.png" alt="Homepage Image" className="w-50 md:w-100" />
 
       <div className="flex flex-col gap-3 p-2">
-        <button className="bg-linear-to-r from-purple-500 to-pink-500 rounded-2xl p-1 md:px-2 font-bold"><Link href="/register">Get Started →</Link></button>
+        <button className="bg-linear-to-r from-purple-500 to-pink-500 rounded-2xl p-1 md:px-2 font-bold"><Link href="/Register">Get Started →</Link></button>
         <button className="border border-solid border-white rounded-2xl font-bold p-1 md:px-2"><Link href="/login">Log In</Link></button>
       </div>
       
