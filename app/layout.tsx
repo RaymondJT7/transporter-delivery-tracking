@@ -16,7 +16,7 @@ export const metadata: Metadata = {
   title: "LogiTrack",
   description: "Transporter-Delivery-Tracking Application",
   icons: {
-    icon: "/LogiTrackLogo.png",
+    icon: "/logo.png",
   }
 };
 
