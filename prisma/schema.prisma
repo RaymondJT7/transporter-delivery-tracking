@@ -16,7 +16,7 @@ model User {
   id        String   @id @default(cuid())
   email     String   @unique
   password  String   // store a hashed password, never plain text
-  name      String?
+  name      String
   role      String   @default("CUSTOMER") // e.g. ADMIN, DRIVER, CUSTOMER
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

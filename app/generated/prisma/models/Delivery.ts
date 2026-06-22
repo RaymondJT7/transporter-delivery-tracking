@@ -513,6 +513,10 @@ export type DeliveryUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.DeliveryScalarWhereInput | Prisma.DeliveryScalarWhereInput[]
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type DeliveryCreateWithoutUserInput = {
   id?: string
   senderName: string
