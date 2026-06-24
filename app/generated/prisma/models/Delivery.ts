@@ -20,8 +20,18 @@ export type DeliveryModel = runtime.Types.Result.DefaultSelection<Prisma.$Delive
 
 export type AggregateDelivery = {
   _count: DeliveryCountAggregateOutputType | null
+  _avg: DeliveryAvgAggregateOutputType | null
+  _sum: DeliverySumAggregateOutputType | null
   _min: DeliveryMinAggregateOutputType | null
   _max: DeliveryMaxAggregateOutputType | null
+}
+
+export type DeliveryAvgAggregateOutputType = {
+  weight: number | null
+}
+
+export type DeliverySumAggregateOutputType = {
+  weight: number | null
 }
 
 export type DeliveryMinAggregateOutputType = {
@@ -32,7 +42,9 @@ export type DeliveryMinAggregateOutputType = {
   receiverPhone: string | null
   pickupAddress: string | null
   deliveryAddress: string | null
-  packageDetails: string | null
+  packageType: string | null
+  weight: number | null
+  driverNotes: string | null
   status: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -47,7 +59,9 @@ export type DeliveryMaxAggregateOutputType = {
   receiverPhone: string | null
   pickupAddress: string | null
   deliveryAddress: string | null
-  packageDetails: string | null
+  packageType: string | null
+  weight: number | null
+  driverNotes: string | null
   status: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -62,7 +76,9 @@ export type DeliveryCountAggregateOutputType = {
   receiverPhone: number
   pickupAddress: number
   deliveryAddress: number
-  packageDetails: number
+  packageType: number
+  weight: number
+  driverNotes: number
   status: number
   createdAt: number
   updatedAt: number
@@ -70,6 +86,14 @@ export type DeliveryCountAggregateOutputType = {
   _all: number
 }
 
+
+export type DeliveryAvgAggregateInputType = {
+  weight?: true
+}
+
+export type DeliverySumAggregateInputType = {
+  weight?: true
+}
 
 export type DeliveryMinAggregateInputType = {
   id?: true
@@ -79,7 +103,9 @@ export type DeliveryMinAggregateInputType = {
   receiverPhone?: true
   pickupAddress?: true
   deliveryAddress?: true
-  packageDetails?: true
+  packageType?: true
+  weight?: true
+  driverNotes?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -94,7 +120,9 @@ export type DeliveryMaxAggregateInputType = {
   receiverPhone?: true
   pickupAddress?: true
   deliveryAddress?: true
-  packageDetails?: true
+  packageType?: true
+  weight?: true
+  driverNotes?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -109,7 +137,9 @@ export type DeliveryCountAggregateInputType = {
   receiverPhone?: true
   pickupAddress?: true
   deliveryAddress?: true
-  packageDetails?: true
+  packageType?: true
+  weight?: true
+  driverNotes?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -155,6 +185,18 @@ export type DeliveryAggregateArgs<ExtArgs extends runtime.Types.Extensions.Inter
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: DeliveryAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: DeliverySumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: DeliveryMinAggregateInputType
@@ -185,24 +227,30 @@ export type DeliveryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   _count?: DeliveryCountAggregateInputType | true
+  _avg?: DeliveryAvgAggregateInputType
+  _sum?: DeliverySumAggregateInputType
   _min?: DeliveryMinAggregateInputType
   _max?: DeliveryMaxAggregateInputType
 }
 
 export type DeliveryGroupByOutputType = {
   id: string
-  senderName: string
-  senderPhone: string
+  senderName: string | null
+  senderPhone: string | null
   receiverName: string
   receiverPhone: string
   pickupAddress: string
   deliveryAddress: string
-  packageDetails: string
+  packageType: string
+  weight: number | null
+  driverNotes: string | null
   status: string
   createdAt: Date
   updatedAt: Date
   userId: string | null
   _count: DeliveryCountAggregateOutputType | null
+  _avg: DeliveryAvgAggregateOutputType | null
+  _sum: DeliverySumAggregateOutputType | null
   _min: DeliveryMinAggregateOutputType | null
   _max: DeliveryMaxAggregateOutputType | null
 }
@@ -227,13 +275,15 @@ export type DeliveryWhereInput = {
   OR?: Prisma.DeliveryWhereInput[]
   NOT?: Prisma.DeliveryWhereInput | Prisma.DeliveryWhereInput[]
   id?: Prisma.StringFilter<"Delivery"> | string
-  senderName?: Prisma.StringFilter<"Delivery"> | string
-  senderPhone?: Prisma.StringFilter<"Delivery"> | string
+  senderName?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  senderPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   receiverName?: Prisma.StringFilter<"Delivery"> | string
   receiverPhone?: Prisma.StringFilter<"Delivery"> | string
   pickupAddress?: Prisma.StringFilter<"Delivery"> | string
   deliveryAddress?: Prisma.StringFilter<"Delivery"> | string
-  packageDetails?: Prisma.StringFilter<"Delivery"> | string
+  packageType?: Prisma.StringFilter<"Delivery"> | string
+  weight?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  driverNotes?: Prisma.StringNullableFilter<"Delivery"> | string | null
   status?: Prisma.StringFilter<"Delivery"> | string
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
@@ -243,13 +293,15 @@ export type DeliveryWhereInput = {
 
 export type DeliveryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  senderName?: Prisma.SortOrder
-  senderPhone?: Prisma.SortOrder
+  senderName?: Prisma.SortOrderInput | Prisma.SortOrder
+  senderPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   receiverName?: Prisma.SortOrder
   receiverPhone?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
-  packageDetails?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
+  weight?: Prisma.SortOrderInput | Prisma.SortOrder
+  driverNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -262,13 +314,15 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.DeliveryWhereInput | Prisma.DeliveryWhereInput[]
   OR?: Prisma.DeliveryWhereInput[]
   NOT?: Prisma.DeliveryWhereInput | Prisma.DeliveryWhereInput[]
-  senderName?: Prisma.StringFilter<"Delivery"> | string
-  senderPhone?: Prisma.StringFilter<"Delivery"> | string
+  senderName?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  senderPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   receiverName?: Prisma.StringFilter<"Delivery"> | string
   receiverPhone?: Prisma.StringFilter<"Delivery"> | string
   pickupAddress?: Prisma.StringFilter<"Delivery"> | string
   deliveryAddress?: Prisma.StringFilter<"Delivery"> | string
-  packageDetails?: Prisma.StringFilter<"Delivery"> | string
+  packageType?: Prisma.StringFilter<"Delivery"> | string
+  weight?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  driverNotes?: Prisma.StringNullableFilter<"Delivery"> | string | null
   status?: Prisma.StringFilter<"Delivery"> | string
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
@@ -278,20 +332,24 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
 
 export type DeliveryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  senderName?: Prisma.SortOrder
-  senderPhone?: Prisma.SortOrder
+  senderName?: Prisma.SortOrderInput | Prisma.SortOrder
+  senderPhone?: Prisma.SortOrderInput | Prisma.SortOrder
   receiverName?: Prisma.SortOrder
   receiverPhone?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
-  packageDetails?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
+  weight?: Prisma.SortOrderInput | Prisma.SortOrder
+  driverNotes?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.DeliveryCountOrderByAggregateInput
+  _avg?: Prisma.DeliveryAvgOrderByAggregateInput
   _max?: Prisma.DeliveryMaxOrderByAggregateInput
   _min?: Prisma.DeliveryMinOrderByAggregateInput
+  _sum?: Prisma.DeliverySumOrderByAggregateInput
 }
 
 export type DeliveryScalarWhereWithAggregatesInput = {
@@ -299,13 +357,15 @@ export type DeliveryScalarWhereWithAggregatesInput = {
   OR?: Prisma.DeliveryScalarWhereWithAggregatesInput[]
   NOT?: Prisma.DeliveryScalarWhereWithAggregatesInput | Prisma.DeliveryScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
-  senderName?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
-  senderPhone?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
+  senderName?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  senderPhone?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   receiverName?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
   receiverPhone?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
   pickupAddress?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
   deliveryAddress?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
-  packageDetails?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
+  packageType?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
+  weight?: Prisma.FloatNullableWithAggregatesFilter<"Delivery"> | number | null
+  driverNotes?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Delivery"> | Date | string
@@ -314,13 +374,15 @@ export type DeliveryScalarWhereWithAggregatesInput = {
 
 export type DeliveryCreateInput = {
   id?: string
-  senderName: string
-  senderPhone: string
+  senderName?: string | null
+  senderPhone?: string | null
   receiverName: string
   receiverPhone: string
   pickupAddress: string
   deliveryAddress: string
-  packageDetails: string
+  packageType: string
+  weight?: number | null
+  driverNotes?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -329,13 +391,15 @@ export type DeliveryCreateInput = {
 
 export type DeliveryUncheckedCreateInput = {
   id?: string
-  senderName: string
-  senderPhone: string
+  senderName?: string | null
+  senderPhone?: string | null
   receiverName: string
   receiverPhone: string
   pickupAddress: string
   deliveryAddress: string
-  packageDetails: string
+  packageType: string
+  weight?: number | null
+  driverNotes?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -344,13 +408,15 @@ export type DeliveryUncheckedCreateInput = {
 
 export type DeliveryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderName?: Prisma.StringFieldUpdateOperationsInput | string
-  senderPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receiverName?: Prisma.StringFieldUpdateOperationsInput | string
   receiverPhone?: Prisma.StringFieldUpdateOperationsInput | string
   pickupAddress?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  packageDetails?: Prisma.StringFieldUpdateOperationsInput | string
+  packageType?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -359,13 +425,15 @@ export type DeliveryUpdateInput = {
 
 export type DeliveryUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderName?: Prisma.StringFieldUpdateOperationsInput | string
-  senderPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receiverName?: Prisma.StringFieldUpdateOperationsInput | string
   receiverPhone?: Prisma.StringFieldUpdateOperationsInput | string
   pickupAddress?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  packageDetails?: Prisma.StringFieldUpdateOperationsInput | string
+  packageType?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -374,13 +442,15 @@ export type DeliveryUncheckedUpdateInput = {
 
 export type DeliveryCreateManyInput = {
   id?: string
-  senderName: string
-  senderPhone: string
+  senderName?: string | null
+  senderPhone?: string | null
   receiverName: string
   receiverPhone: string
   pickupAddress: string
   deliveryAddress: string
-  packageDetails: string
+  packageType: string
+  weight?: number | null
+  driverNotes?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -389,13 +459,15 @@ export type DeliveryCreateManyInput = {
 
 export type DeliveryUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderName?: Prisma.StringFieldUpdateOperationsInput | string
-  senderPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receiverName?: Prisma.StringFieldUpdateOperationsInput | string
   receiverPhone?: Prisma.StringFieldUpdateOperationsInput | string
   pickupAddress?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  packageDetails?: Prisma.StringFieldUpdateOperationsInput | string
+  packageType?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -403,13 +475,15 @@ export type DeliveryUpdateManyMutationInput = {
 
 export type DeliveryUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderName?: Prisma.StringFieldUpdateOperationsInput | string
-  senderPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receiverName?: Prisma.StringFieldUpdateOperationsInput | string
   receiverPhone?: Prisma.StringFieldUpdateOperationsInput | string
   pickupAddress?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  packageDetails?: Prisma.StringFieldUpdateOperationsInput | string
+  packageType?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -434,11 +508,17 @@ export type DeliveryCountOrderByAggregateInput = {
   receiverPhone?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
-  packageDetails?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
+  weight?: Prisma.SortOrder
+  driverNotes?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+}
+
+export type DeliveryAvgOrderByAggregateInput = {
+  weight?: Prisma.SortOrder
 }
 
 export type DeliveryMaxOrderByAggregateInput = {
@@ -449,7 +529,9 @@ export type DeliveryMaxOrderByAggregateInput = {
   receiverPhone?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
-  packageDetails?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
+  weight?: Prisma.SortOrder
+  driverNotes?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -464,11 +546,17 @@ export type DeliveryMinOrderByAggregateInput = {
   receiverPhone?: Prisma.SortOrder
   pickupAddress?: Prisma.SortOrder
   deliveryAddress?: Prisma.SortOrder
-  packageDetails?: Prisma.SortOrder
+  packageType?: Prisma.SortOrder
+  weight?: Prisma.SortOrder
+  driverNotes?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   userId?: Prisma.SortOrder
+}
+
+export type DeliverySumOrderByAggregateInput = {
+  weight?: Prisma.SortOrder
 }
 
 export type DeliveryCreateNestedManyWithoutUserInput = {
@@ -513,15 +601,25 @@ export type DeliveryUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.DeliveryScalarWhereInput | Prisma.DeliveryScalarWhereInput[]
 }
 
+export type NullableFloatFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
 export type DeliveryCreateWithoutUserInput = {
   id?: string
-  senderName: string
-  senderPhone: string
+  senderName?: string | null
+  senderPhone?: string | null
   receiverName: string
   receiverPhone: string
   pickupAddress: string
   deliveryAddress: string
-  packageDetails: string
+  packageType: string
+  weight?: number | null
+  driverNotes?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -529,13 +627,15 @@ export type DeliveryCreateWithoutUserInput = {
 
 export type DeliveryUncheckedCreateWithoutUserInput = {
   id?: string
-  senderName: string
-  senderPhone: string
+  senderName?: string | null
+  senderPhone?: string | null
   receiverName: string
   receiverPhone: string
   pickupAddress: string
   deliveryAddress: string
-  packageDetails: string
+  packageType: string
+  weight?: number | null
+  driverNotes?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -572,13 +672,15 @@ export type DeliveryScalarWhereInput = {
   OR?: Prisma.DeliveryScalarWhereInput[]
   NOT?: Prisma.DeliveryScalarWhereInput | Prisma.DeliveryScalarWhereInput[]
   id?: Prisma.StringFilter<"Delivery"> | string
-  senderName?: Prisma.StringFilter<"Delivery"> | string
-  senderPhone?: Prisma.StringFilter<"Delivery"> | string
+  senderName?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  senderPhone?: Prisma.StringNullableFilter<"Delivery"> | string | null
   receiverName?: Prisma.StringFilter<"Delivery"> | string
   receiverPhone?: Prisma.StringFilter<"Delivery"> | string
   pickupAddress?: Prisma.StringFilter<"Delivery"> | string
   deliveryAddress?: Prisma.StringFilter<"Delivery"> | string
-  packageDetails?: Prisma.StringFilter<"Delivery"> | string
+  packageType?: Prisma.StringFilter<"Delivery"> | string
+  weight?: Prisma.FloatNullableFilter<"Delivery"> | number | null
+  driverNotes?: Prisma.StringNullableFilter<"Delivery"> | string | null
   status?: Prisma.StringFilter<"Delivery"> | string
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
@@ -587,13 +689,15 @@ export type DeliveryScalarWhereInput = {
 
 export type DeliveryCreateManyUserInput = {
   id?: string
-  senderName: string
-  senderPhone: string
+  senderName?: string | null
+  senderPhone?: string | null
   receiverName: string
   receiverPhone: string
   pickupAddress: string
   deliveryAddress: string
-  packageDetails: string
+  packageType: string
+  weight?: number | null
+  driverNotes?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -601,13 +705,15 @@ export type DeliveryCreateManyUserInput = {
 
 export type DeliveryUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderName?: Prisma.StringFieldUpdateOperationsInput | string
-  senderPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receiverName?: Prisma.StringFieldUpdateOperationsInput | string
   receiverPhone?: Prisma.StringFieldUpdateOperationsInput | string
   pickupAddress?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  packageDetails?: Prisma.StringFieldUpdateOperationsInput | string
+  packageType?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -615,13 +721,15 @@ export type DeliveryUpdateWithoutUserInput = {
 
 export type DeliveryUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderName?: Prisma.StringFieldUpdateOperationsInput | string
-  senderPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receiverName?: Prisma.StringFieldUpdateOperationsInput | string
   receiverPhone?: Prisma.StringFieldUpdateOperationsInput | string
   pickupAddress?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  packageDetails?: Prisma.StringFieldUpdateOperationsInput | string
+  packageType?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -629,13 +737,15 @@ export type DeliveryUncheckedUpdateWithoutUserInput = {
 
 export type DeliveryUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  senderName?: Prisma.StringFieldUpdateOperationsInput | string
-  senderPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   receiverName?: Prisma.StringFieldUpdateOperationsInput | string
   receiverPhone?: Prisma.StringFieldUpdateOperationsInput | string
   pickupAddress?: Prisma.StringFieldUpdateOperationsInput | string
   deliveryAddress?: Prisma.StringFieldUpdateOperationsInput | string
-  packageDetails?: Prisma.StringFieldUpdateOperationsInput | string
+  packageType?: Prisma.StringFieldUpdateOperationsInput | string
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -651,7 +761,9 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   receiverPhone?: boolean
   pickupAddress?: boolean
   deliveryAddress?: boolean
-  packageDetails?: boolean
+  packageType?: boolean
+  weight?: boolean
+  driverNotes?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -667,7 +779,9 @@ export type DeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   receiverPhone?: boolean
   pickupAddress?: boolean
   deliveryAddress?: boolean
-  packageDetails?: boolean
+  packageType?: boolean
+  weight?: boolean
+  driverNotes?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -683,7 +797,9 @@ export type DeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   receiverPhone?: boolean
   pickupAddress?: boolean
   deliveryAddress?: boolean
-  packageDetails?: boolean
+  packageType?: boolean
+  weight?: boolean
+  driverNotes?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -699,14 +815,16 @@ export type DeliverySelectScalar = {
   receiverPhone?: boolean
   pickupAddress?: boolean
   deliveryAddress?: boolean
-  packageDetails?: boolean
+  packageType?: boolean
+  weight?: boolean
+  driverNotes?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "senderName" | "senderPhone" | "receiverName" | "receiverPhone" | "pickupAddress" | "deliveryAddress" | "packageDetails" | "status" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["delivery"]>
+export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "senderName" | "senderPhone" | "receiverName" | "receiverPhone" | "pickupAddress" | "deliveryAddress" | "packageType" | "weight" | "driverNotes" | "status" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["delivery"]>
 export type DeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Delivery$userArgs<ExtArgs>
 }
@@ -724,13 +842,15 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    senderName: string
-    senderPhone: string
+    senderName: string | null
+    senderPhone: string | null
     receiverName: string
     receiverPhone: string
     pickupAddress: string
     deliveryAddress: string
-    packageDetails: string
+    packageType: string
+    weight: number | null
+    driverNotes: string | null
     status: string
     createdAt: Date
     updatedAt: Date
@@ -1166,7 +1286,9 @@ export interface DeliveryFieldRefs {
   readonly receiverPhone: Prisma.FieldRef<"Delivery", 'String'>
   readonly pickupAddress: Prisma.FieldRef<"Delivery", 'String'>
   readonly deliveryAddress: Prisma.FieldRef<"Delivery", 'String'>
-  readonly packageDetails: Prisma.FieldRef<"Delivery", 'String'>
+  readonly packageType: Prisma.FieldRef<"Delivery", 'String'>
+  readonly weight: Prisma.FieldRef<"Delivery", 'Float'>
+  readonly driverNotes: Prisma.FieldRef<"Delivery", 'String'>
   readonly status: Prisma.FieldRef<"Delivery", 'String'>
   readonly createdAt: Prisma.FieldRef<"Delivery", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Delivery", 'DateTime'>

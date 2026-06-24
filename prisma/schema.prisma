@@ -27,8 +27,8 @@ model User {
 model Delivery {
   id              String @id @default(cuid())
 
-  senderName      String
-  senderPhone     String
+  senderName      String?
+  senderPhone     String?
 
   receiverName    String
   receiverPhone   String
@@ -36,7 +36,10 @@ model Delivery {
   pickupAddress   String
   deliveryAddress String
 
-  packageDetails  String
+  packageType  String // "Document" | "Parcel" | "Large" | "Fragile"
+  weight Float?
+
+  driverNotes String?
 
   status          String @default("PENDING")
 

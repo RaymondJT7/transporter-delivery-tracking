@@ -1,4 +1,4 @@
-// Antonie Potgieter
+// Coded by Antonie Potgieter
 // Design by Cione Botha
 
 "use client";
