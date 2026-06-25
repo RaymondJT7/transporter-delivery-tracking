@@ -34,7 +34,7 @@ export default function RatingCard() {
 
         </div>
 
-            <p className="mt-4 relative top-[15px] right-[0px] text-xs tracking-[0.3em] uppercase text-gray-500 mb-4">
+            <p className="mt-4 relative top-3.75 right-0 text-xs tracking-[0.3em] uppercase text-gray-500 mb-4">
                 Overall Experience
             </p>
 

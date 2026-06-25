@@ -66,7 +66,7 @@ export default function TrackPage() {
       <Header />
 
       <section className="grid grid-cols-[320px_1fr]">
-        <aside className="min-h-[760px] border-r border-white/25 px-4 py-7">
+        <aside className="min-h-190 border-r border-white/25 px-4 py-7">
           <div className="flex items-center gap-2 rounded-md bg-zinc-800 px-3 py-3 text-sm text-gray-300">
             <Search size={18} />
             <input
@@ -136,7 +136,7 @@ export default function TrackPage() {
               </div>
             )}
 
-            <div className="absolute right-5 top-5 z-[500] rounded bg-orange-900/80 px-3 py-1 text-orange-400">
+            <div className="absolute right-5 top-5 z-500 rounded bg-orange-900/80 px-3 py-1 text-orange-400">
               ● LIVE
             </div>
           </div>
@@ -202,7 +202,7 @@ export default function TrackPage() {
 
           <h3 className="mt-7 text-xl">Status timeline</h3>
 
-          <div className="mt-3 w-[440px] rounded-lg border border-white/15 bg-zinc-900 p-6">
+          <div className="mt-3 w-110 rounded-lg border border-white/15 bg-zinc-900 p-6">
             <TimelineItem
               time="12:30 PM"
               status={selectedDelivery?.status || "PENDING"}
@@ -239,11 +239,11 @@ export default function TrackPage() {
       </Link>
 
       {showRating && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black/80 backdrop-blur-sm">
           <div className="relative w-full max-w-lg">
             <button
               onClick={() => setShowRating(false)}
-              className="absolute -right-3 -top-3 z-[10000] flex h-10 w-10 items-center justify-center rounded-full bg-pink-500 text-xl font-bold text-white shadow-lg hover:bg-pink-600"
+              className="absolute -right-3 -top-3 z-10000 flex h-10 w-10 items-center justify-center rounded-full bg-pink-500 text-xl font-bold text-white shadow-lg hover:bg-pink-600"
             >
               ×
             </button>
@@ -304,7 +304,7 @@ function TimelineItem({
   return (
     <div className="relative flex gap-6 pb-8 last:pb-0">
       {!last && (
-        <div className="absolute left-[7px] top-5 h-full w-px bg-white/40" />
+        <div className="absolute left-1.75 top-5 h-full w-px bg-white/40" />
       )}
 
       <div className="z-10 mt-1 h-4 w-4 rounded bg-orange-400" />

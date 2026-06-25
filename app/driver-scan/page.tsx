@@ -38,7 +38,7 @@ export default function DriverScanPage() {
 
   return (
     <main className="min-h-screen bg-black text-white flex justify-center">
-      <section className="relative min-h-screen w-full max-w-[430px] overflow-hidden bg-black px-5 py-5">
+      <section className="relative min-h-screen w-full max-w-107.5 overflow-hidden bg-black px-5 py-5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#4c1d95_0%,transparent_35%)] opacity-40" />
 
         <div className="relative z-10">
@@ -77,7 +77,7 @@ export default function DriverScanPage() {
 
           <button
             onClick={() => setShowDetails(true)}
-            className="relative mx-auto mt-16 flex h-[260px] w-[340px] items-center justify-center rounded-xl bg-zinc-950/80 shadow-[0_0_45px_rgba(168,85,247,0.35)]"
+            className="relative mx-auto mt-16 flex h-65 w-85 items-center justify-center rounded-xl bg-zinc-950/80 shadow-[0_0_45px_rgba(168,85,247,0.35)]"
           >
             <Corner className="left-0 top-0 border-l-8 border-t-8 border-purple-500" />
             <Corner className="right-0 top-0 border-r-8 border-t-8 border-pink-500" />
@@ -155,7 +155,7 @@ export default function DriverScanPage() {
 
 function DeliveryDetailsModal({ onClose }: { onClose: () => void }) {
   return (
-    <section className="relative max-h-[95vh] w-full max-w-[430px] overflow-y-auto bg-black px-5 py-5 text-white shadow-[0_0_60px_rgba(236,72,153,0.35)]">
+    <section className="relative max-h-[95vh] w-full max-w-107.5 overflow-y-auto bg-black px-5 py-5 text-white shadow-[0_0_60px_rgba(236,72,153,0.35)]">
       <div className="flex items-center justify-between text-xs">
         <span>9:41 Tue Apr 1</span>
         <span>100%</span>
@@ -181,7 +181,7 @@ function DeliveryDetailsModal({ onClose }: { onClose: () => void }) {
           <p className="text-xs text-gray-500">Tracking ID</p>
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold">{delivery.trackingId}</h2>
-            <span className="rounded-full bg-gradient-to-r from-purple-600 to-pink-500 px-4 py-1 text-xs font-semibold">
+            <span className="rounded-full bg-linear-to-r from-purple-600 to-pink-500 px-4 py-1 text-xs font-semibold">
               {delivery.status}
             </span>
           </div>
@@ -237,7 +237,7 @@ function DeliveryDetailsModal({ onClose }: { onClose: () => void }) {
       <div className="mt-8 rounded-xl bg-zinc-950 p-4">
         <h3 className="mb-3 font-bold">Route Overview</h3>
         <div className="relative h-28 overflow-hidden rounded-lg bg-zinc-900">
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:35px_35px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-size-[35px_35px]" />
           <svg viewBox="0 0 360 90" className="absolute inset-0 h-full w-full">
             <path
               d="M35 60 C80 20 115 85 160 55 C205 25 250 35 320 20"
@@ -271,7 +271,7 @@ function DeliveryDetailsModal({ onClose }: { onClose: () => void }) {
           <Phone className="mr-2 inline" />
           Call Customer
         </button>
-        <button className="rounded-lg bg-gradient-to-r from-purple-600 to-pink-500 py-4 font-bold">
+        <button className="rounded-lg bg-linear-to-r from-purple-600 to-pink-500 py-4 font-bold">
           <Navigation className="mr-2 inline" />
           Navigate
         </button>
