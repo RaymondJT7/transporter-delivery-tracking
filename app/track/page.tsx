@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import RatingCard from "../RatingCard/page";
 import { Search, MapPin, Star, Square } from "lucide-react";
+import Header from "../header/page";
 
 const TrackingMap = dynamic(() => import("../components/TrackingMap"), {
   ssr: false,
@@ -61,35 +62,8 @@ export default function TrackPage() {
 
   return (
     <main className="relative min-h-screen bg-black text-white">
-      <header className="px-8 pt-8">
-        <div className="flex items-center gap-16">
-          <Image
-            src="/logo.png"
-            alt="LogiTrack"
-            width={170}
-            height={100}
-            priority
-          />
-          <div className="h-px flex-1 bg-white/30" />
-        </div>
 
-        <h1 className="mt-12 text-4xl font-light">Welcome back, Cioné</h1>
-      </header>
-
-      <nav className="mt-8 border-y border-white/25 px-8">
-        <div className="flex gap-10">
-          <Link
-            href="/track"
-            className="border-b-2 border-purple-500 py-5 text-purple-400"
-          >
-            Track
-          </Link>
-
-          <Link href="/book-delivery" className="py-5">
-            Book Delivery
-          </Link>
-        </div>
-      </nav>
+      <Header />
 
       <section className="grid grid-cols-[320px_1fr]">
         <aside className="min-h-[760px] border-r border-white/25 px-4 py-7">
