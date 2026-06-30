@@ -41,6 +41,10 @@ model Delivery {
 
   driverNotes String?
 
+  ratingScore   Int?
+  ratingTags    String[] @default([])
+  ratingFeedback String?
+
   status          String @default("PENDING")
 
   createdAt       DateTime @default(now())

@@ -39,8 +39,10 @@ export default function TrackPage() {
         const res = await fetch("/api/deliveries");
         const data = await res.json();
 
-        setDeliveries(data);
-        setSelectedDelivery(data[0] || null);
+        const normalizedDeliveries = Array.isArray(data) ? data : [data];
+
+        setDeliveries(normalizedDeliveries);
+        setSelectedDelivery(normalizedDeliveries[0] || null);
       } catch (error) {
         console.error("Failed to fetch deliveries:", error);
       }
@@ -51,11 +53,14 @@ export default function TrackPage() {
 
   const filteredDeliveries = deliveries.filter((delivery) => {
     const query = search.toLowerCase();
+    const id = delivery.id?.toLowerCase() ?? "";
+    const receiverName = delivery.receiverName?.toLowerCase() ?? "";
+    const deliveryAddress = delivery.deliveryAddress?.toLowerCase() ?? "";
 
     return (
-      delivery.id.toLowerCase().includes(query) ||
-      delivery.receiverName.toLowerCase().includes(query) ||
-      delivery.deliveryAddress.toLowerCase().includes(query)
+      id.includes(query) ||
+      receiverName.includes(query) ||
+      deliveryAddress.includes(query)
     );
   });
 
@@ -267,14 +272,14 @@ export default function TrackPage() {
       {showRating && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm">
           <div className="relative w-full max-w-lg">
-            <button
-              onClick={() => setShowRating(false)}
-              className="absolute -right-3 -top-3 z-[10000] flex h-10 w-10 items-center justify-center rounded-full bg-pink-500 text-xl font-bold text-white shadow-lg hover:bg-pink-600"
-            >
-              ×
-            </button>
+            <div className="relative rounded-3xl border border-purple-500/40 bg-black shadow-[0_0_60px_rgba(236,72,153,0.45)]">
+              <button
+                onClick={() => setShowRating(false)}
+                className="absolute right-4 top-4 z-[10000] flex h-8 w-8 items-center justify-center text-xl font-bold text-gray-400 transition hover:text-white"
+              >
+                ×
+              </button>
 
-            <div className="rounded-3xl border border-purple-500/40 bg-black shadow-[0_0_60px_rgba(236,72,153,0.45)]">
               <RatingCard />
             </div>
           </div>

@@ -5,12 +5,16 @@ import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { useEffect } from "react";
 
-const markerIcon = new L.Icon({
-  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-});
+let markerIcon: L.Icon | null = null;
+
+if (typeof window !== "undefined") {
+  markerIcon = new L.Icon({
+    iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+    shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+  });
+}
 
 type Props = {
   pickupAddress: string;
@@ -74,11 +78,11 @@ export default function TrackingMap({
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
 
-      <Marker position={pickup} icon={markerIcon}>
+      <Marker position={pickup} icon={markerIcon ?? undefined}>
         <Popup>Pickup: {pickupAddress}</Popup>
       </Marker>
 
-      <Marker position={destination} icon={markerIcon}>
+      <Marker position={destination} icon={markerIcon ?? undefined}>
         <Popup>Destination: {deliveryAddress}</Popup>
       </Marker>
     </MapContainer>
