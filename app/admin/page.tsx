@@ -355,7 +355,8 @@ export default function AdminPage() {
         <DeliveryDetailsModal
           delivery={selectedDelivery}
           onClose={() => setSelectedDelivery(null)}
-        />
+          onUpdated={fetchDashboard}
+/>
       )}
 
       {showCreateModal && (
@@ -374,10 +375,62 @@ export default function AdminPage() {
 function DeliveryDetailsModal({
   delivery,
   onClose,
+  onUpdated,
 }: {
   delivery: Delivery;
   onClose: () => void;
+  onUpdated: () => void;
 }) {
+  const [form, setForm] = useState({
+    senderName: delivery.senderName || "",
+    senderPhone: delivery.senderPhone || "",
+    receiverName: delivery.receiverName || "",
+    receiverPhone: delivery.receiverPhone || "",
+    pickupAddress: delivery.pickupAddress || "",
+    deliveryAddress: delivery.deliveryAddress || "",
+    packageType: delivery.packageType || "Parcel",
+    weight: delivery.weight?.toString() || "",
+    driverNotes: delivery.driverNotes || "",
+  });
+
+  async function saveChanges() {
+    const res = await fetch(`/api/deliveries/${delivery.id}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(form),
+    });
+
+    if (!res.ok) {
+      alert("Failed to update delivery");
+      return;
+    }
+
+    alert("Delivery updated successfully");
+    onUpdated();
+    onClose();
+  }
+
+  async function deleteDelivery() {
+    const confirmDelete = confirm(
+      "Are you sure you want to delete this delivery?"
+    );
+
+    if (!confirmDelete) return;
+
+    const res = await fetch(`/api/deliveries/${delivery.id}`, {
+      method: "DELETE",
+    });
+
+    if (!res.ok) {
+      alert("Failed to delete delivery");
+      return;
+    }
+
+    alert("Delivery deleted successfully");
+    onUpdated();
+    onClose();
+  }
+
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 px-4 backdrop-blur-sm">
       <div className="relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl border border-purple-500/40 bg-black p-8 shadow-[0_0_70px_rgba(236,72,153,0.45)]">
@@ -385,8 +438,10 @@ function DeliveryDetailsModal({
           <X />
         </button>
 
-        <p className="text-sm text-purple-300">Delivery Details</p>
-        <h2 className="mt-2 text-3xl font-bold text-purple-400">{delivery.id}</h2>
+        <p className="text-sm text-purple-300">Edit Delivery</p>
+        <h2 className="mt-2 text-2xl font-bold text-purple-400">
+          {delivery.id}
+        </h2>
 
         <div className="mt-6 flex items-center gap-3">
           <span className="rounded-full bg-orange-900/60 px-4 py-2 text-sm text-orange-300">
@@ -399,24 +454,78 @@ function DeliveryDetailsModal({
         </div>
 
         <div className="mt-8 grid grid-cols-2 gap-5">
-          <DetailCard title="Sender" value={`${delivery.senderName || "N/A"} • ${delivery.senderPhone || "N/A"}`} />
-          <DetailCard title="Receiver" value={`${delivery.receiverName} • ${delivery.receiverPhone}`} />
-
-          <DetailCard icon title="Pickup Address" value={delivery.pickupAddress} />
-          <DetailCard icon title="Delivery Address" value={delivery.deliveryAddress} />
-
-          <DetailCard
-            title="Package"
-            value={`${delivery.packageType || "Package"}${delivery.weight ? ` • ${delivery.weight}kg` : ""}`}
+          <Input
+            label="Sender Name"
+            value={form.senderName}
+            onChange={(value) => setForm({ ...form, senderName: value })}
           />
 
-          <DetailCard
-            title="Assigned Driver"
-            value={delivery.assignedDriver?.name || "Not assigned"}
+          <Input
+            label="Sender Phone"
+            value={form.senderPhone}
+            onChange={(value) => setForm({ ...form, senderPhone: value })}
+          />
+
+          <Input
+            label="Receiver Name"
+            value={form.receiverName}
+            onChange={(value) => setForm({ ...form, receiverName: value })}
+            required
+          />
+
+          <Input
+            label="Receiver Phone"
+            value={form.receiverPhone}
+            onChange={(value) => setForm({ ...form, receiverPhone: value })}
+            required
+          />
+
+          <Input
+            label="Pickup Address"
+            value={form.pickupAddress}
+            onChange={(value) => setForm({ ...form, pickupAddress: value })}
+            required
+          />
+
+          <Input
+            label="Delivery Address"
+            value={form.deliveryAddress}
+            onChange={(value) => setForm({ ...form, deliveryAddress: value })}
+            required
+          />
+
+          <div>
+            <label className="text-sm text-gray-400">Package Type</label>
+            <select
+              value={form.packageType}
+              onChange={(e) =>
+                setForm({ ...form, packageType: e.target.value })
+              }
+              className="mt-2 w-full rounded-xl border border-purple-500/40 bg-zinc-900 px-4 py-3 outline-none"
+            >
+              <option>Parcel</option>
+              <option>Document</option>
+              <option>Large</option>
+              <option>Fragile</option>
+            </select>
+          </div>
+
+          <Input
+            label="Weight KG"
+            type="number"
+            value={form.weight}
+            onChange={(value) => setForm({ ...form, weight: value })}
           />
 
           <div className="col-span-2">
-            <DetailCard title="Driver Notes" value={delivery.driverNotes || "No notes"} />
+            <label className="text-sm text-gray-400">Driver Notes</label>
+            <textarea
+              value={form.driverNotes}
+              onChange={(e) =>
+                setForm({ ...form, driverNotes: e.target.value })
+              }
+              className="mt-2 h-24 w-full rounded-xl border border-purple-500/40 bg-zinc-900 px-4 py-3 outline-none placeholder:text-gray-600"
+            />
           </div>
         </div>
 
@@ -444,11 +553,35 @@ function DeliveryDetailsModal({
             <p className="text-gray-400">No status history yet.</p>
           )}
         </div>
+
+        <div className="mt-8 flex justify-between">
+          <button
+            onClick={deleteDelivery}
+            className="rounded-xl border border-red-500 px-6 py-3 font-bold text-red-400 hover:bg-red-950/40"
+          >
+            Delete Delivery
+          </button>
+
+          <div className="flex gap-3">
+            <button
+              onClick={onClose}
+              className="rounded-xl border border-white/20 px-6 py-3 hover:border-purple-500"
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={saveChanges}
+              className="rounded-xl bg-gradient-to-r from-purple-600 to-pink-500 px-6 py-3 font-bold"
+            >
+              Save Changes
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
 }
-
 function CreateDeliveryModal({
   newDelivery,
   setNewDelivery,
