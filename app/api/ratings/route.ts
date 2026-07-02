@@ -68,7 +68,7 @@ export async function POST(req: Request) {
       where: { id: deliveryId },
       data: {
         ratingScore: score,
-        ratingTags: tags,
+        ratingTags: tags.join(","),
         ratingFeedback: feedback,
       },
     });

@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
   output   = "../app/generated/prisma"
@@ -11,17 +6,17 @@ generator client {
 datasource db {
   provider = "postgresql"
 }
-
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
-  password  String   // store a hashed password, never plain text
+  password  String
   name      String?
-  role      String   @default("CUSTOMER") // e.g. ADMIN, DRIVER, CUSTOMER
+  role      String   @default("CUSTOMER")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  deliveries Delivery[] // relation: one user can book many deliveries
+  customerDeliveries Delivery[] @relation("CustomerDeliveries")
+  driverDeliveries   Delivery[] @relation("DriverDeliveries")
 }
 
 model Delivery {
@@ -36,21 +31,22 @@ model Delivery {
   pickupAddress   String
   deliveryAddress String
 
-  packageType  String // "Document" | "Parcel" | "Large" | "Fragile"
-  weight Float?
+  packageType     String?
+  weight          Float?
+  driverNotes     String?
 
-  driverNotes String?
-
-  ratingScore   Int?
-  ratingTags    String[] @default([])
+  ratingScore    Int?
+  ratingTags     String?
   ratingFeedback String?
 
   status          String @default("PENDING")
 
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
-  
-  userId          String?
-  user            User?    @relation(fields: [userId], references: [id])
 
+  userId          String?
+  user            User? @relation("CustomerDeliveries", fields: [userId], references: [id])
+
+  assignedDriverId String?
+  assignedDriver   User? @relation("DriverDeliveries", fields: [assignedDriverId], references: [id])
 }

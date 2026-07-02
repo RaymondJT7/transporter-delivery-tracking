@@ -39,17 +39,17 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json(
-      {
-        message: "Login successful",
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        },
-      },
-      { status: 200 }
-    );
+  {
+    message: "Login successful",
+    user: {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      role: user.role,
+    },
+  },
+  { status: 200 }
+);
   } catch (error) {
     console.error("Login error:", error);
 

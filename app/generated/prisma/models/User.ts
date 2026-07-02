@@ -198,7 +198,8 @@ export type UserWhereInput = {
   role?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  deliveries?: Prisma.DeliveryListRelationFilter
+  customerDeliveries?: Prisma.DeliveryListRelationFilter
+  driverDeliveries?: Prisma.DeliveryListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -209,7 +210,8 @@ export type UserOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  deliveries?: Prisma.DeliveryOrderByRelationAggregateInput
+  customerDeliveries?: Prisma.DeliveryOrderByRelationAggregateInput
+  driverDeliveries?: Prisma.DeliveryOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -223,7 +225,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   role?: Prisma.StringFilter<"User"> | string
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  deliveries?: Prisma.DeliveryListRelationFilter
+  customerDeliveries?: Prisma.DeliveryListRelationFilter
+  driverDeliveries?: Prisma.DeliveryListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -260,7 +263,8 @@ export type UserCreateInput = {
   role?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deliveries?: Prisma.DeliveryCreateNestedManyWithoutUserInput
+  customerDeliveries?: Prisma.DeliveryCreateNestedManyWithoutUserInput
+  driverDeliveries?: Prisma.DeliveryCreateNestedManyWithoutAssignedDriverInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -271,7 +275,8 @@ export type UserUncheckedCreateInput = {
   role?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  deliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutUserInput
+  customerDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutUserInput
+  driverDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutAssignedDriverInput
 }
 
 export type UserUpdateInput = {
@@ -282,7 +287,8 @@ export type UserUpdateInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deliveries?: Prisma.DeliveryUpdateManyWithoutUserNestedInput
+  customerDeliveries?: Prisma.DeliveryUpdateManyWithoutUserNestedInput
+  driverDeliveries?: Prisma.DeliveryUpdateManyWithoutAssignedDriverNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -293,7 +299,8 @@ export type UserUncheckedUpdateInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  deliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutUserNestedInput
+  customerDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutUserNestedInput
+  driverDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutAssignedDriverNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -373,23 +380,39 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type UserCreateNestedOneWithoutDeliveriesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDeliveriesInput, Prisma.UserUncheckedCreateWithoutDeliveriesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeliveriesInput
+export type UserCreateNestedOneWithoutCustomerDeliveriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCustomerDeliveriesInput, Prisma.UserUncheckedCreateWithoutCustomerDeliveriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCustomerDeliveriesInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneWithoutDeliveriesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDeliveriesInput, Prisma.UserUncheckedCreateWithoutDeliveriesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDeliveriesInput
-  upsert?: Prisma.UserUpsertWithoutDeliveriesInput
+export type UserCreateNestedOneWithoutDriverDeliveriesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDriverDeliveriesInput, Prisma.UserUncheckedCreateWithoutDriverDeliveriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDriverDeliveriesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutCustomerDeliveriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCustomerDeliveriesInput, Prisma.UserUncheckedCreateWithoutCustomerDeliveriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCustomerDeliveriesInput
+  upsert?: Prisma.UserUpsertWithoutCustomerDeliveriesInput
   disconnect?: Prisma.UserWhereInput | boolean
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDeliveriesInput, Prisma.UserUpdateWithoutDeliveriesInput>, Prisma.UserUncheckedUpdateWithoutDeliveriesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCustomerDeliveriesInput, Prisma.UserUpdateWithoutCustomerDeliveriesInput>, Prisma.UserUncheckedUpdateWithoutCustomerDeliveriesInput>
 }
 
-export type UserCreateWithoutDeliveriesInput = {
+export type UserUpdateOneWithoutDriverDeliveriesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDriverDeliveriesInput, Prisma.UserUncheckedCreateWithoutDriverDeliveriesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDriverDeliveriesInput
+  upsert?: Prisma.UserUpsertWithoutDriverDeliveriesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDriverDeliveriesInput, Prisma.UserUpdateWithoutDriverDeliveriesInput>, Prisma.UserUncheckedUpdateWithoutDriverDeliveriesInput>
+}
+
+export type UserCreateWithoutCustomerDeliveriesInput = {
   id?: string
   email: string
   password: string
@@ -397,9 +420,10 @@ export type UserCreateWithoutDeliveriesInput = {
   role?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  driverDeliveries?: Prisma.DeliveryCreateNestedManyWithoutAssignedDriverInput
 }
 
-export type UserUncheckedCreateWithoutDeliveriesInput = {
+export type UserUncheckedCreateWithoutCustomerDeliveriesInput = {
   id?: string
   email: string
   password: string
@@ -407,25 +431,53 @@ export type UserUncheckedCreateWithoutDeliveriesInput = {
   role?: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  driverDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutAssignedDriverInput
 }
 
-export type UserCreateOrConnectWithoutDeliveriesInput = {
+export type UserCreateOrConnectWithoutCustomerDeliveriesInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutDeliveriesInput, Prisma.UserUncheckedCreateWithoutDeliveriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCustomerDeliveriesInput, Prisma.UserUncheckedCreateWithoutCustomerDeliveriesInput>
 }
 
-export type UserUpsertWithoutDeliveriesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutDeliveriesInput, Prisma.UserUncheckedUpdateWithoutDeliveriesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutDeliveriesInput, Prisma.UserUncheckedCreateWithoutDeliveriesInput>
+export type UserCreateWithoutDriverDeliveriesInput = {
+  id?: string
+  email: string
+  password: string
+  name?: string | null
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customerDeliveries?: Prisma.DeliveryCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDriverDeliveriesInput = {
+  id?: string
+  email: string
+  password: string
+  name?: string | null
+  role?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  customerDeliveries?: Prisma.DeliveryUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDriverDeliveriesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDriverDeliveriesInput, Prisma.UserUncheckedCreateWithoutDriverDeliveriesInput>
+}
+
+export type UserUpsertWithoutCustomerDeliveriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCustomerDeliveriesInput, Prisma.UserUncheckedUpdateWithoutCustomerDeliveriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCustomerDeliveriesInput, Prisma.UserUncheckedCreateWithoutCustomerDeliveriesInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutDeliveriesInput = {
+export type UserUpdateToOneWithWhereWithoutCustomerDeliveriesInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutDeliveriesInput, Prisma.UserUncheckedUpdateWithoutDeliveriesInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCustomerDeliveriesInput, Prisma.UserUncheckedUpdateWithoutCustomerDeliveriesInput>
 }
 
-export type UserUpdateWithoutDeliveriesInput = {
+export type UserUpdateWithoutCustomerDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
@@ -433,9 +485,10 @@ export type UserUpdateWithoutDeliveriesInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  driverDeliveries?: Prisma.DeliveryUpdateManyWithoutAssignedDriverNestedInput
 }
 
-export type UserUncheckedUpdateWithoutDeliveriesInput = {
+export type UserUncheckedUpdateWithoutCustomerDeliveriesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
@@ -443,6 +496,40 @@ export type UserUncheckedUpdateWithoutDeliveriesInput = {
   role?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  driverDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutAssignedDriverNestedInput
+}
+
+export type UserUpsertWithoutDriverDeliveriesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDriverDeliveriesInput, Prisma.UserUncheckedUpdateWithoutDriverDeliveriesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDriverDeliveriesInput, Prisma.UserUncheckedCreateWithoutDriverDeliveriesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDriverDeliveriesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDriverDeliveriesInput, Prisma.UserUncheckedUpdateWithoutDriverDeliveriesInput>
+}
+
+export type UserUpdateWithoutDriverDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customerDeliveries?: Prisma.DeliveryUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDriverDeliveriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  customerDeliveries?: Prisma.DeliveryUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -451,11 +538,13 @@ export type UserUncheckedUpdateWithoutDeliveriesInput = {
  */
 
 export type UserCountOutputType = {
-  deliveries: number
+  customerDeliveries: number
+  driverDeliveries: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  deliveries?: boolean | UserCountOutputTypeCountDeliveriesArgs
+  customerDeliveries?: boolean | UserCountOutputTypeCountCustomerDeliveriesArgs
+  driverDeliveries?: boolean | UserCountOutputTypeCountDriverDeliveriesArgs
 }
 
 /**
@@ -471,7 +560,14 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type UserCountOutputTypeCountCustomerDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DeliveryWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDriverDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DeliveryWhereInput
 }
 
@@ -484,7 +580,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   role?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  deliveries?: boolean | Prisma.User$deliveriesArgs<ExtArgs>
+  customerDeliveries?: boolean | Prisma.User$customerDeliveriesArgs<ExtArgs>
+  driverDeliveries?: boolean | Prisma.User$driverDeliveriesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -520,7 +617,8 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password" | "name" | "role" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  deliveries?: boolean | Prisma.User$deliveriesArgs<ExtArgs>
+  customerDeliveries?: boolean | Prisma.User$customerDeliveriesArgs<ExtArgs>
+  driverDeliveries?: boolean | Prisma.User$driverDeliveriesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -529,7 +627,8 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    deliveries: Prisma.$DeliveryPayload<ExtArgs>[]
+    customerDeliveries: Prisma.$DeliveryPayload<ExtArgs>[]
+    driverDeliveries: Prisma.$DeliveryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -933,7 +1032,8 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  deliveries<T extends Prisma.User$deliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$deliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  customerDeliveries<T extends Prisma.User$customerDeliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$customerDeliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  driverDeliveries<T extends Prisma.User$driverDeliveriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$driverDeliveriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1363,9 +1463,33 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.deliveries
+ * User.customerDeliveries
  */
-export type User$deliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$customerDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Delivery
+   */
+  select?: Prisma.DeliverySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Delivery
+   */
+  omit?: Prisma.DeliveryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DeliveryInclude<ExtArgs> | null
+  where?: Prisma.DeliveryWhereInput
+  orderBy?: Prisma.DeliveryOrderByWithRelationInput | Prisma.DeliveryOrderByWithRelationInput[]
+  cursor?: Prisma.DeliveryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DeliveryScalarFieldEnum | Prisma.DeliveryScalarFieldEnum[]
+}
+
+/**
+ * User.driverDeliveries
+ */
+export type User$driverDeliveriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
    * Select specific fields to fetch from the Delivery
    */
