@@ -18,6 +18,7 @@ export default function LoginPage() {
             src="/LogiTrackLogo.png"
             alt="LogiTrack Logo"
             width={260}
+            height={120}
             priority
             className="drop-shadow-[0_0_30px_rgba(236,72,153,0.7)]"
           />
