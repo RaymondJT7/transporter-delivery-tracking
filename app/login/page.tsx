@@ -1,4 +1,4 @@
-// Coded by Antonie Potgieter
+// Antonie Potgieter
 // Design by Cione Botha
 
 "use client";
@@ -18,7 +18,6 @@ export default function LoginPage() {
             src="/LogiTrackLogo.png"
             alt="LogiTrack Logo"
             width={260}
-            height={160}
             priority
             className="drop-shadow-[0_0_30px_rgba(236,72,153,0.7)]"
           />
@@ -60,21 +59,15 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full rounded-2xl bg-linear-to-r from-[#8B5CF6] to-[#EC4899] py-4 text-xl font-bold shadow-[0_0_35px_rgba(236,72,153,0.7)] transition hover:scale-105"
+            className="w-full rounded-2xl bg-gradient-to-r from-[#8B5CF6] to-[#EC4899] py-4 text-xl font-bold shadow-[0_0_35px_rgba(236,72,153,0.7)] transition hover:scale-105"
           >
             Log In
-          </button>
-        </form>
-
-        <div className="mt-6 space-y-3">
-          <button className="w-full rounded-full border border-white/60 py-3 font-semibold transition hover:bg-white hover:text-black">
-            🌈 Log in with Google
           </button>
 
           <button className="w-full rounded-full border border-white/60 py-3 font-semibold transition hover:bg-white hover:text-black">
             📘 Log in with Facebook
           </button>
-        </div>
+        </form>
 
         <p className="mt-8 text-center text-sm text-gray-300">
           Don&apos;t have an account?{" "}
