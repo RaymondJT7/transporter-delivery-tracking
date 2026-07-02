@@ -28,10 +28,12 @@ export type AggregateDelivery = {
 
 export type DeliveryAvgAggregateOutputType = {
   weight: number | null
+  ratingScore: number | null
 }
 
 export type DeliverySumAggregateOutputType = {
   weight: number | null
+  ratingScore: number | null
 }
 
 export type DeliveryMinAggregateOutputType = {
@@ -45,6 +47,8 @@ export type DeliveryMinAggregateOutputType = {
   packageType: string | null
   weight: number | null
   driverNotes: string | null
+  ratingScore: number | null
+  ratingFeedback: string | null
   status: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -62,6 +66,8 @@ export type DeliveryMaxAggregateOutputType = {
   packageType: string | null
   weight: number | null
   driverNotes: string | null
+  ratingScore: number | null
+  ratingFeedback: string | null
   status: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -79,6 +85,9 @@ export type DeliveryCountAggregateOutputType = {
   packageType: number
   weight: number
   driverNotes: number
+  ratingScore: number
+  ratingTags: number
+  ratingFeedback: number
   status: number
   createdAt: number
   updatedAt: number
@@ -89,10 +98,12 @@ export type DeliveryCountAggregateOutputType = {
 
 export type DeliveryAvgAggregateInputType = {
   weight?: true
+  ratingScore?: true
 }
 
 export type DeliverySumAggregateInputType = {
   weight?: true
+  ratingScore?: true
 }
 
 export type DeliveryMinAggregateInputType = {
@@ -106,6 +117,8 @@ export type DeliveryMinAggregateInputType = {
   packageType?: true
   weight?: true
   driverNotes?: true
+  ratingScore?: true
+  ratingFeedback?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -123,6 +136,8 @@ export type DeliveryMaxAggregateInputType = {
   packageType?: true
   weight?: true
   driverNotes?: true
+  ratingScore?: true
+  ratingFeedback?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -140,6 +155,9 @@ export type DeliveryCountAggregateInputType = {
   packageType?: true
   weight?: true
   driverNotes?: true
+  ratingScore?: true
+  ratingTags?: true
+  ratingFeedback?: true
   status?: true
   createdAt?: true
   updatedAt?: true
@@ -244,6 +262,9 @@ export type DeliveryGroupByOutputType = {
   packageType: string
   weight: number | null
   driverNotes: string | null
+  ratingScore: number | null
+  ratingTags: string[]
+  ratingFeedback: string | null
   status: string
   createdAt: Date
   updatedAt: Date
@@ -284,6 +305,9 @@ export type DeliveryWhereInput = {
   packageType?: Prisma.StringFilter<"Delivery"> | string
   weight?: Prisma.FloatNullableFilter<"Delivery"> | number | null
   driverNotes?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  ratingScore?: Prisma.IntNullableFilter<"Delivery"> | number | null
+  ratingTags?: Prisma.StringNullableListFilter<"Delivery">
+  ratingFeedback?: Prisma.StringNullableFilter<"Delivery"> | string | null
   status?: Prisma.StringFilter<"Delivery"> | string
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
@@ -302,6 +326,9 @@ export type DeliveryOrderByWithRelationInput = {
   packageType?: Prisma.SortOrder
   weight?: Prisma.SortOrderInput | Prisma.SortOrder
   driverNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  ratingScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  ratingTags?: Prisma.SortOrder
+  ratingFeedback?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -323,6 +350,9 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   packageType?: Prisma.StringFilter<"Delivery"> | string
   weight?: Prisma.FloatNullableFilter<"Delivery"> | number | null
   driverNotes?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  ratingScore?: Prisma.IntNullableFilter<"Delivery"> | number | null
+  ratingTags?: Prisma.StringNullableListFilter<"Delivery">
+  ratingFeedback?: Prisma.StringNullableFilter<"Delivery"> | string | null
   status?: Prisma.StringFilter<"Delivery"> | string
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
@@ -341,6 +371,9 @@ export type DeliveryOrderByWithAggregationInput = {
   packageType?: Prisma.SortOrder
   weight?: Prisma.SortOrderInput | Prisma.SortOrder
   driverNotes?: Prisma.SortOrderInput | Prisma.SortOrder
+  ratingScore?: Prisma.SortOrderInput | Prisma.SortOrder
+  ratingTags?: Prisma.SortOrder
+  ratingFeedback?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -366,6 +399,9 @@ export type DeliveryScalarWhereWithAggregatesInput = {
   packageType?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
   weight?: Prisma.FloatNullableWithAggregatesFilter<"Delivery"> | number | null
   driverNotes?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
+  ratingScore?: Prisma.IntNullableWithAggregatesFilter<"Delivery"> | number | null
+  ratingTags?: Prisma.StringNullableListFilter<"Delivery">
+  ratingFeedback?: Prisma.StringNullableWithAggregatesFilter<"Delivery"> | string | null
   status?: Prisma.StringWithAggregatesFilter<"Delivery"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Delivery"> | Date | string
@@ -383,6 +419,9 @@ export type DeliveryCreateInput = {
   packageType: string
   weight?: number | null
   driverNotes?: string | null
+  ratingScore?: number | null
+  ratingTags?: Prisma.DeliveryCreateratingTagsInput | string[]
+  ratingFeedback?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -400,6 +439,9 @@ export type DeliveryUncheckedCreateInput = {
   packageType: string
   weight?: number | null
   driverNotes?: string | null
+  ratingScore?: number | null
+  ratingTags?: Prisma.DeliveryCreateratingTagsInput | string[]
+  ratingFeedback?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -417,6 +459,9 @@ export type DeliveryUpdateInput = {
   packageType?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ratingTags?: Prisma.DeliveryUpdateratingTagsInput | string[]
+  ratingFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -434,6 +479,9 @@ export type DeliveryUncheckedUpdateInput = {
   packageType?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ratingTags?: Prisma.DeliveryUpdateratingTagsInput | string[]
+  ratingFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -451,6 +499,9 @@ export type DeliveryCreateManyInput = {
   packageType: string
   weight?: number | null
   driverNotes?: string | null
+  ratingScore?: number | null
+  ratingTags?: Prisma.DeliveryCreateratingTagsInput | string[]
+  ratingFeedback?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -468,6 +519,9 @@ export type DeliveryUpdateManyMutationInput = {
   packageType?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ratingTags?: Prisma.DeliveryUpdateratingTagsInput | string[]
+  ratingFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -484,6 +538,9 @@ export type DeliveryUncheckedUpdateManyInput = {
   packageType?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ratingTags?: Prisma.DeliveryUpdateratingTagsInput | string[]
+  ratingFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -500,6 +557,14 @@ export type DeliveryOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type DeliveryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   senderName?: Prisma.SortOrder
@@ -511,6 +576,9 @@ export type DeliveryCountOrderByAggregateInput = {
   packageType?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   driverNotes?: Prisma.SortOrder
+  ratingScore?: Prisma.SortOrder
+  ratingTags?: Prisma.SortOrder
+  ratingFeedback?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -519,6 +587,7 @@ export type DeliveryCountOrderByAggregateInput = {
 
 export type DeliveryAvgOrderByAggregateInput = {
   weight?: Prisma.SortOrder
+  ratingScore?: Prisma.SortOrder
 }
 
 export type DeliveryMaxOrderByAggregateInput = {
@@ -532,6 +601,8 @@ export type DeliveryMaxOrderByAggregateInput = {
   packageType?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   driverNotes?: Prisma.SortOrder
+  ratingScore?: Prisma.SortOrder
+  ratingFeedback?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -549,6 +620,8 @@ export type DeliveryMinOrderByAggregateInput = {
   packageType?: Prisma.SortOrder
   weight?: Prisma.SortOrder
   driverNotes?: Prisma.SortOrder
+  ratingScore?: Prisma.SortOrder
+  ratingFeedback?: Prisma.SortOrder
   status?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -557,6 +630,7 @@ export type DeliveryMinOrderByAggregateInput = {
 
 export type DeliverySumOrderByAggregateInput = {
   weight?: Prisma.SortOrder
+  ratingScore?: Prisma.SortOrder
 }
 
 export type DeliveryCreateNestedManyWithoutUserInput = {
@@ -601,12 +675,29 @@ export type DeliveryUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.DeliveryScalarWhereInput | Prisma.DeliveryScalarWhereInput[]
 }
 
+export type DeliveryCreateratingTagsInput = {
+  set: string[]
+}
+
 export type NullableFloatFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
+}
+
+export type NullableIntFieldUpdateOperationsInput = {
+  set?: number | null
+  increment?: number
+  decrement?: number
+  multiply?: number
+  divide?: number
+}
+
+export type DeliveryUpdateratingTagsInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type DeliveryCreateWithoutUserInput = {
@@ -620,6 +711,9 @@ export type DeliveryCreateWithoutUserInput = {
   packageType: string
   weight?: number | null
   driverNotes?: string | null
+  ratingScore?: number | null
+  ratingTags?: Prisma.DeliveryCreateratingTagsInput | string[]
+  ratingFeedback?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -636,6 +730,9 @@ export type DeliveryUncheckedCreateWithoutUserInput = {
   packageType: string
   weight?: number | null
   driverNotes?: string | null
+  ratingScore?: number | null
+  ratingTags?: Prisma.DeliveryCreateratingTagsInput | string[]
+  ratingFeedback?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -681,6 +778,9 @@ export type DeliveryScalarWhereInput = {
   packageType?: Prisma.StringFilter<"Delivery"> | string
   weight?: Prisma.FloatNullableFilter<"Delivery"> | number | null
   driverNotes?: Prisma.StringNullableFilter<"Delivery"> | string | null
+  ratingScore?: Prisma.IntNullableFilter<"Delivery"> | number | null
+  ratingTags?: Prisma.StringNullableListFilter<"Delivery">
+  ratingFeedback?: Prisma.StringNullableFilter<"Delivery"> | string | null
   status?: Prisma.StringFilter<"Delivery"> | string
   createdAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Delivery"> | Date | string
@@ -698,6 +798,9 @@ export type DeliveryCreateManyUserInput = {
   packageType: string
   weight?: number | null
   driverNotes?: string | null
+  ratingScore?: number | null
+  ratingTags?: Prisma.DeliveryCreateratingTagsInput | string[]
+  ratingFeedback?: string | null
   status?: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -714,6 +817,9 @@ export type DeliveryUpdateWithoutUserInput = {
   packageType?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ratingTags?: Prisma.DeliveryUpdateratingTagsInput | string[]
+  ratingFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -730,6 +836,9 @@ export type DeliveryUncheckedUpdateWithoutUserInput = {
   packageType?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ratingTags?: Prisma.DeliveryUpdateratingTagsInput | string[]
+  ratingFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -746,6 +855,9 @@ export type DeliveryUncheckedUpdateManyWithoutUserInput = {
   packageType?: Prisma.StringFieldUpdateOperationsInput | string
   weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
   driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ratingTags?: Prisma.DeliveryUpdateratingTagsInput | string[]
+  ratingFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -764,6 +876,9 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   packageType?: boolean
   weight?: boolean
   driverNotes?: boolean
+  ratingScore?: boolean
+  ratingTags?: boolean
+  ratingFeedback?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -782,6 +897,9 @@ export type DeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   packageType?: boolean
   weight?: boolean
   driverNotes?: boolean
+  ratingScore?: boolean
+  ratingTags?: boolean
+  ratingFeedback?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -800,6 +918,9 @@ export type DeliverySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   packageType?: boolean
   weight?: boolean
   driverNotes?: boolean
+  ratingScore?: boolean
+  ratingTags?: boolean
+  ratingFeedback?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -818,13 +939,16 @@ export type DeliverySelectScalar = {
   packageType?: boolean
   weight?: boolean
   driverNotes?: boolean
+  ratingScore?: boolean
+  ratingTags?: boolean
+  ratingFeedback?: boolean
   status?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   userId?: boolean
 }
 
-export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "senderName" | "senderPhone" | "receiverName" | "receiverPhone" | "pickupAddress" | "deliveryAddress" | "packageType" | "weight" | "driverNotes" | "status" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["delivery"]>
+export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "senderName" | "senderPhone" | "receiverName" | "receiverPhone" | "pickupAddress" | "deliveryAddress" | "packageType" | "weight" | "driverNotes" | "ratingScore" | "ratingTags" | "ratingFeedback" | "status" | "createdAt" | "updatedAt" | "userId", ExtArgs["result"]["delivery"]>
 export type DeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Delivery$userArgs<ExtArgs>
 }
@@ -851,6 +975,9 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     packageType: string
     weight: number | null
     driverNotes: string | null
+    ratingScore: number | null
+    ratingTags: string[]
+    ratingFeedback: string | null
     status: string
     createdAt: Date
     updatedAt: Date
@@ -1289,6 +1416,9 @@ export interface DeliveryFieldRefs {
   readonly packageType: Prisma.FieldRef<"Delivery", 'String'>
   readonly weight: Prisma.FieldRef<"Delivery", 'Float'>
   readonly driverNotes: Prisma.FieldRef<"Delivery", 'String'>
+  readonly ratingScore: Prisma.FieldRef<"Delivery", 'Int'>
+  readonly ratingTags: Prisma.FieldRef<"Delivery", 'String[]'>
+  readonly ratingFeedback: Prisma.FieldRef<"Delivery", 'String'>
   readonly status: Prisma.FieldRef<"Delivery", 'String'>
   readonly createdAt: Prisma.FieldRef<"Delivery", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Delivery", 'DateTime'>

@@ -1,11 +1,53 @@
+"use client";
+
+import { useState } from "react";
+
 export default function RatingCard() {
+    const [selectedStars, setSelectedStars] = useState(0);
+    const [selectedTags, setSelectedTags] = useState<string[]>([]);
+    const [feedback, setFeedback] = useState("");
+    const [status, setStatus] = useState("");
+
+    const toggleTag = (tag: string) => {
+        setSelectedTags((current) =>
+            current.includes(tag) ? current.filter((item) => item !== tag) : [...current, tag]
+        );
+    };
+
+    const handleSubmit = async () => {
+        setStatus("");
+
+        try {
+            const response = await fetch("/api/ratings", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    deliveryId: "demo-delivery",
+                    score: selectedStars,
+                    tags: selectedTags,
+                    feedback,
+                }),
+            });
+
+            const result = await response.json();
+
+            if (!response.ok) {
+                setStatus(result?.error || "Failed to submit rating");
+                return;
+            }
+
+            setStatus("Rating saved successfully");
+        } catch (error) {
+            console.error("Rating submit error:", error);
+            setStatus("Failed to submit rating");
+        }
+    };
+
     return (
         
-    <div className="w-full max-w-xl bg-[#11131d] border border-gray-800 p-6 shadow-2xl">                          
-
-            <button className="absolute top-91 right-119 text-gray-500 hover:text-white text-3xl transition">
-                ×
-            </button>
+    <div className="w-full max-w-xl bg-[#11131d] border border-gray-800 p-6 shadow-2xl">                                      
             
             <p className="text-xs tracking-[0.3em] uppercase text-gray-500">
                 Rate Your Delivery
@@ -38,40 +80,48 @@ export default function RatingCard() {
                 Overall Experience
             </p>
 
-            <div className="flex gap-2 mt-6 text-3xl text-yellow-500"> 
-                <button>☆</button>
-                <button>☆</button>
-                <button>☆</button>
-                <button>☆</button>
-                <button>☆</button>
+            <div className="flex gap-2 mt-6 text-3xl text-yellow-500">
+                {[1, 2, 3, 4, 5].map((star) => (
+                    <button
+                        key={star}
+                        type="button"
+                        onClick={() => setSelectedStars(star)}
+                        className={star <= selectedStars ? "text-yellow-400" : "text-gray-600"}
+                    >
+                        ★
+                    </button>
+                ))}
             </div>
 
-            <div className="mt-8"> 
-                <p className="text-xs tracking-[0.3em] uppercase text-gray-500 mb-4">
+            <div className="mt-4"> 
+                <p className="text-xs tracking-[0.3em] uppercase text-gray-500 mb-3">
                     Quick Feedback
                 </p>
 
                 <div className="flex flex-wrap gap-3">
-                    <button className="border border-gray-700 px-4 py-3 text-gray-400 hover:border-yellow-600 hover:text-yellow-500 transition">
-                    Fast delivery
-                    </button>
-
-                    <button className="border border-gray-700 px-4 py-3 text-gray-400 hover:border-yellow-600 hover:text-yellow-500 transition">
-                    Careful with package
-                    </button>
-
-                    <button className="border border-gray-700 px-4 py-3 text-gray-400 hover:border-yellow-600 hover:text-yellow-500 transition">
-                    Friendly driver
-                    </button>
-
-                    <button className="border border-gray-700 px-4 py-3 text-gray-400 hover:border-yellow-600 hover:text-yellow-500 transition">
-                    Great communication
-                    </button>
-
-                    <button className="border border-gray-700 px-4 py-3 text-gray-400 hover:border-yellow-600 hover:text-yellow-500 transition">
-                    Left in safe place
-                    </button>
-
+                    {[
+                        "Fast delivery",
+                        "Careful with package",
+                        "Friendly driver",
+                        "Great communication",
+                        "Left in safe place",
+                    ].map((tag) => {
+                        const isSelected = selectedTags.includes(tag);
+                        return (
+                            <button
+                                key={tag}
+                                type="button"
+                                onClick={() => toggleTag(tag)}
+                                className={`border px-4 py-3 transition ${
+                                    isSelected
+                                        ? "border-yellow-600 text-yellow-500"
+                                        : "border-gray-700 text-gray-400 hover:border-yellow-600 hover:text-yellow-500"
+                                }`}
+                            >
+                                {tag}
+                            </button>
+                        );
+                    })}
                 </div>
 
             </div>
@@ -84,11 +134,19 @@ export default function RatingCard() {
                 <textarea 
                     className="w-full -mt-1 p-3 bg-[#1b1f2d] border border-gray-700 rounded"
                     placeholder="Optional..."
+                    value={feedback}
+                    onChange={(event) => setFeedback(event.target.value)}
                 />
                 
             </div>
 
-            <button className="w-full mt-4 bg-yellow-700 py-4 uppercase text-black font-semibold">
+            {status ? <p className="mt-4 text-sm text-yellow-400">{status === "Failed to submit rating" ? "" : status}</p> : null}
+
+            <button
+                type="button"
+                onClick={handleSubmit}
+                className="w-full mt-4 bg-yellow-700 py-4 uppercase text-black font-semibold"
+            >
                 Submit Rating
             </button>
 
