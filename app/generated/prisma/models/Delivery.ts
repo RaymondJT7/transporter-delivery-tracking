@@ -326,6 +326,7 @@ export type DeliveryWhereInput = {
   assignedDriverId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   assignedDriver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  statusHistory?: Prisma.DeliveryStatusHistoryListRelationFilter
 }
 
 export type DeliveryOrderByWithRelationInput = {
@@ -349,6 +350,7 @@ export type DeliveryOrderByWithRelationInput = {
   assignedDriverId?: Prisma.SortOrderInput | Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
   assignedDriver?: Prisma.UserOrderByWithRelationInput
+  statusHistory?: Prisma.DeliveryStatusHistoryOrderByRelationAggregateInput
 }
 
 export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
@@ -375,6 +377,7 @@ export type DeliveryWhereUniqueInput = Prisma.AtLeast<{
   assignedDriverId?: Prisma.StringNullableFilter<"Delivery"> | string | null
   user?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
   assignedDriver?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  statusHistory?: Prisma.DeliveryStatusHistoryListRelationFilter
 }, "id">
 
 export type DeliveryOrderByWithAggregationInput = {
@@ -446,6 +449,7 @@ export type DeliveryCreateInput = {
   updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutCustomerDeliveriesInput
   assignedDriver?: Prisma.UserCreateNestedOneWithoutDriverDeliveriesInput
+  statusHistory?: Prisma.DeliveryStatusHistoryCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateInput = {
@@ -467,6 +471,7 @@ export type DeliveryUncheckedCreateInput = {
   updatedAt?: Date | string
   userId?: string | null
   assignedDriverId?: string | null
+  statusHistory?: Prisma.DeliveryStatusHistoryUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUpdateInput = {
@@ -488,6 +493,7 @@ export type DeliveryUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutCustomerDeliveriesNestedInput
   assignedDriver?: Prisma.UserUpdateOneWithoutDriverDeliveriesNestedInput
+  statusHistory?: Prisma.DeliveryStatusHistoryUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateInput = {
@@ -509,6 +515,7 @@ export type DeliveryUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   assignedDriverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusHistory?: Prisma.DeliveryStatusHistoryUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryCreateManyInput = {
@@ -655,6 +662,11 @@ export type DeliverySumOrderByAggregateInput = {
   ratingScore?: Prisma.SortOrder
 }
 
+export type DeliveryScalarRelationFilter = {
+  is?: Prisma.DeliveryWhereInput
+  isNot?: Prisma.DeliveryWhereInput
+}
+
 export type DeliveryCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.DeliveryCreateWithoutUserInput, Prisma.DeliveryUncheckedCreateWithoutUserInput> | Prisma.DeliveryCreateWithoutUserInput[] | Prisma.DeliveryUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutUserInput | Prisma.DeliveryCreateOrConnectWithoutUserInput[]
@@ -755,6 +767,20 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type DeliveryCreateNestedOneWithoutStatusHistoryInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutStatusHistoryInput, Prisma.DeliveryUncheckedCreateWithoutStatusHistoryInput>
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutStatusHistoryInput
+  connect?: Prisma.DeliveryWhereUniqueInput
+}
+
+export type DeliveryUpdateOneRequiredWithoutStatusHistoryNestedInput = {
+  create?: Prisma.XOR<Prisma.DeliveryCreateWithoutStatusHistoryInput, Prisma.DeliveryUncheckedCreateWithoutStatusHistoryInput>
+  connectOrCreate?: Prisma.DeliveryCreateOrConnectWithoutStatusHistoryInput
+  upsert?: Prisma.DeliveryUpsertWithoutStatusHistoryInput
+  connect?: Prisma.DeliveryWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.DeliveryUpdateToOneWithWhereWithoutStatusHistoryInput, Prisma.DeliveryUpdateWithoutStatusHistoryInput>, Prisma.DeliveryUncheckedUpdateWithoutStatusHistoryInput>
+}
+
 export type DeliveryCreateWithoutUserInput = {
   id?: string
   senderName?: string | null
@@ -773,6 +799,7 @@ export type DeliveryCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   assignedDriver?: Prisma.UserCreateNestedOneWithoutDriverDeliveriesInput
+  statusHistory?: Prisma.DeliveryStatusHistoryCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateWithoutUserInput = {
@@ -793,6 +820,7 @@ export type DeliveryUncheckedCreateWithoutUserInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   assignedDriverId?: string | null
+  statusHistory?: Prisma.DeliveryStatusHistoryUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryCreateOrConnectWithoutUserInput = {
@@ -823,6 +851,7 @@ export type DeliveryCreateWithoutAssignedDriverInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user?: Prisma.UserCreateNestedOneWithoutCustomerDeliveriesInput
+  statusHistory?: Prisma.DeliveryStatusHistoryCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryUncheckedCreateWithoutAssignedDriverInput = {
@@ -843,6 +872,7 @@ export type DeliveryUncheckedCreateWithoutAssignedDriverInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   userId?: string | null
+  statusHistory?: Prisma.DeliveryStatusHistoryUncheckedCreateNestedManyWithoutDeliveryInput
 }
 
 export type DeliveryCreateOrConnectWithoutAssignedDriverInput = {
@@ -911,6 +941,106 @@ export type DeliveryUpdateManyWithWhereWithoutAssignedDriverInput = {
   data: Prisma.XOR<Prisma.DeliveryUpdateManyMutationInput, Prisma.DeliveryUncheckedUpdateManyWithoutAssignedDriverInput>
 }
 
+export type DeliveryCreateWithoutStatusHistoryInput = {
+  id?: string
+  senderName?: string | null
+  senderPhone?: string | null
+  receiverName: string
+  receiverPhone: string
+  pickupAddress: string
+  deliveryAddress: string
+  packageType?: string | null
+  weight?: number | null
+  driverNotes?: string | null
+  ratingScore?: number | null
+  ratingTags?: string | null
+  ratingFeedback?: string | null
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user?: Prisma.UserCreateNestedOneWithoutCustomerDeliveriesInput
+  assignedDriver?: Prisma.UserCreateNestedOneWithoutDriverDeliveriesInput
+}
+
+export type DeliveryUncheckedCreateWithoutStatusHistoryInput = {
+  id?: string
+  senderName?: string | null
+  senderPhone?: string | null
+  receiverName: string
+  receiverPhone: string
+  pickupAddress: string
+  deliveryAddress: string
+  packageType?: string | null
+  weight?: number | null
+  driverNotes?: string | null
+  ratingScore?: number | null
+  ratingTags?: string | null
+  ratingFeedback?: string | null
+  status?: string
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  userId?: string | null
+  assignedDriverId?: string | null
+}
+
+export type DeliveryCreateOrConnectWithoutStatusHistoryInput = {
+  where: Prisma.DeliveryWhereUniqueInput
+  create: Prisma.XOR<Prisma.DeliveryCreateWithoutStatusHistoryInput, Prisma.DeliveryUncheckedCreateWithoutStatusHistoryInput>
+}
+
+export type DeliveryUpsertWithoutStatusHistoryInput = {
+  update: Prisma.XOR<Prisma.DeliveryUpdateWithoutStatusHistoryInput, Prisma.DeliveryUncheckedUpdateWithoutStatusHistoryInput>
+  create: Prisma.XOR<Prisma.DeliveryCreateWithoutStatusHistoryInput, Prisma.DeliveryUncheckedCreateWithoutStatusHistoryInput>
+  where?: Prisma.DeliveryWhereInput
+}
+
+export type DeliveryUpdateToOneWithWhereWithoutStatusHistoryInput = {
+  where?: Prisma.DeliveryWhereInput
+  data: Prisma.XOR<Prisma.DeliveryUpdateWithoutStatusHistoryInput, Prisma.DeliveryUncheckedUpdateWithoutStatusHistoryInput>
+}
+
+export type DeliveryUpdateWithoutStatusHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiverName?: Prisma.StringFieldUpdateOperationsInput | string
+  receiverPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  pickupAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  packageType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ratingTags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneWithoutCustomerDeliveriesNestedInput
+  assignedDriver?: Prisma.UserUpdateOneWithoutDriverDeliveriesNestedInput
+}
+
+export type DeliveryUncheckedUpdateWithoutStatusHistoryInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  senderName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  senderPhone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  receiverName?: Prisma.StringFieldUpdateOperationsInput | string
+  receiverPhone?: Prisma.StringFieldUpdateOperationsInput | string
+  pickupAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  deliveryAddress?: Prisma.StringFieldUpdateOperationsInput | string
+  packageType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  weight?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
+  driverNotes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingScore?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  ratingTags?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  ratingFeedback?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  assignedDriverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+}
+
 export type DeliveryCreateManyUserInput = {
   id?: string
   senderName?: string | null
@@ -969,6 +1099,7 @@ export type DeliveryUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedDriver?: Prisma.UserUpdateOneWithoutDriverDeliveriesNestedInput
+  statusHistory?: Prisma.DeliveryStatusHistoryUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateWithoutUserInput = {
@@ -989,6 +1120,7 @@ export type DeliveryUncheckedUpdateWithoutUserInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   assignedDriverId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusHistory?: Prisma.DeliveryStatusHistoryUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateManyWithoutUserInput = {
@@ -1029,6 +1161,7 @@ export type DeliveryUpdateWithoutAssignedDriverInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneWithoutCustomerDeliveriesNestedInput
+  statusHistory?: Prisma.DeliveryStatusHistoryUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateWithoutAssignedDriverInput = {
@@ -1049,6 +1182,7 @@ export type DeliveryUncheckedUpdateWithoutAssignedDriverInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   userId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  statusHistory?: Prisma.DeliveryStatusHistoryUncheckedUpdateManyWithoutDeliveryNestedInput
 }
 
 export type DeliveryUncheckedUpdateManyWithoutAssignedDriverInput = {
@@ -1072,6 +1206,35 @@ export type DeliveryUncheckedUpdateManyWithoutAssignedDriverInput = {
 }
 
 
+/**
+ * Count Type DeliveryCountOutputType
+ */
+
+export type DeliveryCountOutputType = {
+  statusHistory: number
+}
+
+export type DeliveryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  statusHistory?: boolean | DeliveryCountOutputTypeCountStatusHistoryArgs
+}
+
+/**
+ * DeliveryCountOutputType without action
+ */
+export type DeliveryCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DeliveryCountOutputType
+   */
+  select?: Prisma.DeliveryCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * DeliveryCountOutputType without action
+ */
+export type DeliveryCountOutputTypeCountStatusHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DeliveryStatusHistoryWhereInput
+}
+
 
 export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1094,6 +1257,8 @@ export type DeliverySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   assignedDriverId?: boolean
   user?: boolean | Prisma.Delivery$userArgs<ExtArgs>
   assignedDriver?: boolean | Prisma.Delivery$assignedDriverArgs<ExtArgs>
+  statusHistory?: boolean | Prisma.Delivery$statusHistoryArgs<ExtArgs>
+  _count?: boolean | Prisma.DeliveryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["delivery"]>
 
 export type DeliverySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1167,6 +1332,8 @@ export type DeliveryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 export type DeliveryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Delivery$userArgs<ExtArgs>
   assignedDriver?: boolean | Prisma.Delivery$assignedDriverArgs<ExtArgs>
+  statusHistory?: boolean | Prisma.Delivery$statusHistoryArgs<ExtArgs>
+  _count?: boolean | Prisma.DeliveryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DeliveryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.Delivery$userArgs<ExtArgs>
@@ -1182,6 +1349,7 @@ export type $DeliveryPayload<ExtArgs extends runtime.Types.Extensions.InternalAr
   objects: {
     user: Prisma.$UserPayload<ExtArgs> | null
     assignedDriver: Prisma.$UserPayload<ExtArgs> | null
+    statusHistory: Prisma.$DeliveryStatusHistoryPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1598,6 +1766,7 @@ export interface Prisma__DeliveryClient<T, Null = never, ExtArgs extends runtime
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.Delivery$userArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$userArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   assignedDriver<T extends Prisma.Delivery$assignedDriverArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$assignedDriverArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  statusHistory<T extends Prisma.Delivery$statusHistoryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Delivery$statusHistoryArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliveryStatusHistoryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2081,6 +2250,30 @@ export type Delivery$assignedDriverArgs<ExtArgs extends runtime.Types.Extensions
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
+}
+
+/**
+ * Delivery.statusHistory
+ */
+export type Delivery$statusHistoryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DeliveryStatusHistory
+   */
+  select?: Prisma.DeliveryStatusHistorySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DeliveryStatusHistory
+   */
+  omit?: Prisma.DeliveryStatusHistoryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DeliveryStatusHistoryInclude<ExtArgs> | null
+  where?: Prisma.DeliveryStatusHistoryWhereInput
+  orderBy?: Prisma.DeliveryStatusHistoryOrderByWithRelationInput | Prisma.DeliveryStatusHistoryOrderByWithRelationInput[]
+  cursor?: Prisma.DeliveryStatusHistoryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DeliveryStatusHistoryScalarFieldEnum | Prisma.DeliveryStatusHistoryScalarFieldEnum[]
 }
 
 /**

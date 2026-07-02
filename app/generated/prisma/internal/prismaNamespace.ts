@@ -385,7 +385,8 @@ type FieldRefInputType<Model, FieldType> = Model extends never ? never : FieldRe
 
 export const ModelName = {
   User: 'User',
-  Delivery: 'Delivery'
+  Delivery: 'Delivery',
+  DeliveryStatusHistory: 'DeliveryStatusHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -401,7 +402,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "delivery"
+    modelProps: "user" | "delivery" | "deliveryStatusHistory"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -553,6 +554,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    DeliveryStatusHistory: {
+      payload: Prisma.$DeliveryStatusHistoryPayload<ExtArgs>
+      fields: Prisma.DeliveryStatusHistoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DeliveryStatusHistoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DeliveryStatusHistoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload>
+        }
+        findFirst: {
+          args: Prisma.DeliveryStatusHistoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DeliveryStatusHistoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload>
+        }
+        findMany: {
+          args: Prisma.DeliveryStatusHistoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload>[]
+        }
+        create: {
+          args: Prisma.DeliveryStatusHistoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload>
+        }
+        createMany: {
+          args: Prisma.DeliveryStatusHistoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DeliveryStatusHistoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload>[]
+        }
+        delete: {
+          args: Prisma.DeliveryStatusHistoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload>
+        }
+        update: {
+          args: Prisma.DeliveryStatusHistoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.DeliveryStatusHistoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DeliveryStatusHistoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DeliveryStatusHistoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.DeliveryStatusHistoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DeliveryStatusHistoryPayload>
+        }
+        aggregate: {
+          args: Prisma.DeliveryStatusHistoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDeliveryStatusHistory>
+        }
+        groupBy: {
+          args: Prisma.DeliveryStatusHistoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeliveryStatusHistoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DeliveryStatusHistoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DeliveryStatusHistoryCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -627,6 +702,16 @@ export const DeliveryScalarFieldEnum = {
 } as const
 
 export type DeliveryScalarFieldEnum = (typeof DeliveryScalarFieldEnum)[keyof typeof DeliveryScalarFieldEnum]
+
+
+export const DeliveryStatusHistoryScalarFieldEnum = {
+  id: 'id',
+  deliveryId: 'deliveryId',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type DeliveryStatusHistoryScalarFieldEnum = (typeof DeliveryStatusHistoryScalarFieldEnum)[keyof typeof DeliveryStatusHistoryScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -826,6 +911,7 @@ export type PrismaClientOptions = ({
 export type GlobalOmitConfig = {
   user?: Prisma.UserOmit
   delivery?: Prisma.DeliveryOmit
+  deliveryStatusHistory?: Prisma.DeliveryStatusHistoryOmit
 }
 
 /* Types for Logging */

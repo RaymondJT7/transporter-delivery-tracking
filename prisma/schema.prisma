@@ -49,4 +49,20 @@ model Delivery {
 
   assignedDriverId String?
   assignedDriver   User? @relation("DriverDeliveries", fields: [assignedDriverId], references: [id])
+
+  statusHistory DeliveryStatusHistory[]
+}
+
+model DeliveryStatusHistory {
+  id         String   @id @default(cuid())
+
+  deliveryId String
+  delivery   Delivery @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+
+  status     String
+
+  createdAt  DateTime @default(now())
+
+
+  
 }

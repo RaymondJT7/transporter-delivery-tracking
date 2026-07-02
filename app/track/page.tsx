@@ -13,24 +13,38 @@ const TrackingMap = dynamic(() => import("../components/TrackingMap"), {
 
 type Delivery = {
   id: string;
-  senderName?: string;
-  senderPhone?: string;
+  senderName?: string | null;
+  senderPhone?: string | null;
   receiverName: string;
   receiverPhone: string;
   pickupAddress: string;
   deliveryAddress: string;
-  packageType: string;
-  weight?: number;  
-  driverNotes?: string; 
+  packageType?: string | null;
+  weight?: number | null;
+  driverNotes?: string | null;
   status: string;
   createdAt: string;
   updatedAt: string;
+
+  assignedDriver?: {
+    id: string;
+    name: string | null;
+    email: string;
+  } | null;
+
+  statusHistory?: {
+    id: string;
+    status: string;
+    createdAt: string;
+  }[];
 };
 
 export default function TrackPage() {
   const [showRating, setShowRating] = useState(false);
   const [deliveries, setDeliveries] = useState<Delivery[]>([]);
-  const [selectedDelivery, setSelectedDelivery] = useState<Delivery | null>(null);
+  const [selectedDelivery, setSelectedDelivery] = useState<Delivery | null>(
+    null
+  );
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -53,14 +67,12 @@ export default function TrackPage() {
 
   const filteredDeliveries = deliveries.filter((delivery) => {
     const query = search.toLowerCase();
-    const id = delivery.id?.toLowerCase() ?? "";
-    const receiverName = delivery.receiverName?.toLowerCase() ?? "";
-    const deliveryAddress = delivery.deliveryAddress?.toLowerCase() ?? "";
 
     return (
-      id.includes(query) ||
-      receiverName.includes(query) ||
-      deliveryAddress.includes(query)
+      delivery.id.toLowerCase().includes(query) ||
+      delivery.receiverName.toLowerCase().includes(query) ||
+      delivery.deliveryAddress.toLowerCase().includes(query) ||
+      delivery.status.toLowerCase().includes(query)
     );
   });
 
@@ -194,24 +206,31 @@ export default function TrackPage() {
             />
           </div>
 
-          <div className="mt-6 grid grid-cols-3 gap-6">
+          <div className="mt-6 grid grid-cols-4 gap-6">
             <InfoCard
               title="Recipient"
               value={selectedDelivery?.receiverName || "Receiver name"}
             />
 
-            <InfoCard title="Driver" value="Ryan Davies" />
-
             <InfoCard
-                title="Package"
-                value={selectedDelivery
-                    ? `${selectedDelivery.packageType} (${selectedDelivery.weight ?? "N/A"} kg)`
-                    : "Package details"}
+              title="Driver"
+              value={selectedDelivery?.assignedDriver?.name || "Not assigned"}
             />
 
             <InfoCard
-                title="Driver Notes"
-                value={selectedDelivery?.driverNotes || "No notes"}
+              title="Package"
+              value={
+                selectedDelivery
+                  ? `${selectedDelivery.packageType || "Package"} (${
+                      selectedDelivery.weight ?? "N/A"
+                    } kg)`
+                  : "Package details"
+              }
+            />
+
+            <InfoCard
+              title="Driver Notes"
+              value={selectedDelivery?.driverNotes || "No notes"}
             />
           </div>
 
@@ -234,40 +253,41 @@ export default function TrackPage() {
           <h3 className="mt-7 text-xl">Status timeline</h3>
 
           <div className="mt-3 w-[440px] rounded-lg border border-white/15 bg-zinc-900 p-6">
-            <TimelineItem
-              time="12:30 PM"
-              status={selectedDelivery?.status || "PENDING"}
-              color="purple"
-              title="Current delivery status"
-              place={selectedDelivery?.deliveryAddress || "Delivery address"}
-            />
-
-            <TimelineItem
-              time="11:45 AM"
-              status="PICKED UP"
-              color="blue"
-              title="Package picked up"
-              place={selectedDelivery?.pickupAddress || "Pickup address"}
-            />
-
-            <TimelineItem
-              time="11:00 AM"
-              status="PENDING"
-              color="orange"
-              title="Booking confirmed"
-              place={selectedDelivery?.pickupAddress || "Pickup address"}
-              last
-            />
+            {selectedDelivery?.statusHistory?.length ? (
+              selectedDelivery.statusHistory.map((history, index) => (
+                <TimelineItem
+                  key={history.id}
+                  time={new Date(history.createdAt).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                  status={history.status}
+                  color={getTimelineColor(history.status)}
+                  title={history.status.replaceAll("_", " ")}
+                  place={selectedDelivery.deliveryAddress}
+                  last={index === selectedDelivery.statusHistory!.length - 1}
+                />
+              ))
+            ) : (
+              <p className="text-center text-gray-400">
+                No status history available yet.
+              </p>
+            )}
           </div>
         </section>
       </section>
 
-      <Link
-        href="/login"
+      <button
+        onClick={() => {
+          localStorage.removeItem("user");
+          document.cookie =
+            "userRole=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+          window.location.href = "/login";
+        }}
         className="fixed bottom-8 right-10 text-3xl font-light"
       >
         Sign Out
-      </Link>
+      </button>
 
       {showRating && (
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-sm">
@@ -287,6 +307,13 @@ export default function TrackPage() {
       )}
     </main>
   );
+}
+
+function getTimelineColor(status: string): "purple" | "blue" | "orange" {
+  if (status === "DELIVERED") return "blue";
+  if (status === "IN_TRANSIT") return "purple";
+  if (status === "PICKED_UP") return "blue";
+  return "orange";
 }
 
 function InfoCard({

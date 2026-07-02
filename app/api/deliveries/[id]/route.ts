@@ -12,8 +12,49 @@ export async function GET(
       where: { id },
       include: {
         user: true,
+        assignedDriver: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+        statusHistory: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
       },
     });
+
+    
+   const deliveries = await prisma.delivery.findMany({
+  include: {
+    assignedDriver: {
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    },
+    user: {
+      select: {
+        id: true,
+        name: true,
+        email: true,
+      },
+    },
+    statusHistory: {
+      orderBy: {
+        createdAt: "desc",
+      },
+    },
+  },
+  orderBy: {
+    createdAt: "desc",
+  },
+});     
+        
 
     if (!delivery) {
       return NextResponse.json(
@@ -52,6 +93,7 @@ export async function PATCH(
 
     const allowedStatuses = [
       "PENDING",
+      "ASSIGNED",
       "PICKED_UP",
       "IN_TRANSIT",
       "DELIVERED",
@@ -68,6 +110,13 @@ export async function PATCH(
     const updatedDelivery = await prisma.delivery.update({
       where: { id },
       data: { status },
+    });
+
+    await prisma.deliveryStatusHistory.create({
+      data: {
+        deliveryId: id,
+        status,
+      },
     });
 
     return NextResponse.json(updatedDelivery, { status: 200 });

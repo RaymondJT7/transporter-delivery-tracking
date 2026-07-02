@@ -10,4 +10,5 @@
  */
 export type * from './models/User'
 export type * from './models/Delivery'
+export type * from './models/DeliveryStatusHistory'
 export type * from './commonInputTypes'

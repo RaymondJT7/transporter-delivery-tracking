@@ -27,3 +27,8 @@ export type User = Prisma.UserModel
  * 
  */
 export type Delivery = Prisma.DeliveryModel
+/**
+ * Model DeliveryStatusHistory
+ * 
+ */
+export type DeliveryStatusHistory = Prisma.DeliveryStatusHistoryModel
