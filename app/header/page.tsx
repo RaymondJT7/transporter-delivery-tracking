@@ -7,7 +7,7 @@ const Header = () => {
     <div>
 
         <div className='w-full flex flex-row justify-start items-center gap-0 md:gap-10'>
-            <img src="/LogiTrackLogo.png" alt="Logo" className='w-35 md:w-50' />
+            <img src="/logo.png" alt="Logo" className='w-35 md:w-50' />
             <div className="h-px w-300 bg-white"></div>
         </div>
 
