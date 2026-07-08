@@ -1,11 +1,11 @@
 "use client"
 
-import React from 'react'
+import React, { Suspense } from 'react'
 import Header from '../header/page'
 import { useState } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 
-const Package_Type = () => {
+function PackageTypeForm() {
 
     const router = useRouter()
     const searchParams = useSearchParams()
@@ -105,4 +105,10 @@ const Package_Type = () => {
     )
 }
 
-export default Package_Type
+export default function Package_Type() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-black" />}>
+            <PackageTypeForm />
+        </Suspense>
+    )
+}

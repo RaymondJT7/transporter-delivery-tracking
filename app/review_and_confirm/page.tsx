@@ -1,11 +1,12 @@
 // Coded by Raymond J Tilstone
 // Design by Cione Botha
 "use client"
+import { Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import Header from "../header/page"
 import { Square } from "lucide-react"
 
-export default function Review_And_Confirm() {
+function ReviewAndConfirmContent() {
     const router = useRouter()
     const searchParams = useSearchParams()
     const formData = Object.fromEntries(searchParams.entries())
@@ -95,3 +96,10 @@ export default function Review_And_Confirm() {
     )
 }
 
+export default function Review_And_Confirm() {
+    return (
+        <Suspense fallback={<div className="min-h-screen bg-black" />}>
+            <ReviewAndConfirmContent />
+        </Suspense>
+    )
+}

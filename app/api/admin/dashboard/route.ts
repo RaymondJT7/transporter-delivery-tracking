@@ -1,7 +1,13 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
+import { getSessionFromRequest } from "@/lib/session";
 
-export async function GET() {
+export async function GET(req: Request) {
+  const session = await getSessionFromRequest(req);
+  if (!session || session.role !== "ADMIN") {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   try {
     const [
       totalDeliveries,

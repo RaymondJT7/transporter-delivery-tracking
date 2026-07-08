@@ -28,12 +28,24 @@ export async function POST(req: Request) {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    // Never trust a role sent from the client - anyone could POST
+    // { "role": "ADMIN" } and grant themselves admin access. Public
+    // self-registration can only ever create a CUSTOMER or DRIVER;
+    // ADMIN accounts should be created a different way (e.g. directly
+    // in the database, or a separate invite-only flow).
+    const ALLOWED_SELF_SIGNUP_ROLES = ["CUSTOMER", "DRIVER"];
+    const requestedRole =
+      typeof role === "string" ? role.toUpperCase() : "CUSTOMER";
+    const safeRole = ALLOWED_SELF_SIGNUP_ROLES.includes(requestedRole)
+      ? requestedRole
+      : "CUSTOMER";
+
     const user = await prisma.user.create({
       data: {
         name,
         email,
         password: hashedPassword,
-        role: role || "CUSTOMER",
+        role: safeRole,
       },
       select: {
         id: true,
