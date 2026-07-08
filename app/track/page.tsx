@@ -81,7 +81,7 @@ export default function TrackPage() {
       <header className="px-8 pt-8">
         <div className="flex items-center gap-16">
           <Image
-            src="/logo.png"
+            src="public/logo.png"
             alt="LogiTrack"
             width={170}
             height={100}
