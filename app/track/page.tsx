@@ -102,7 +102,7 @@ export default function TrackPage() {
             Track
           </Link>
 
-          <Link href="/book-delivery" className="py-5">
+          <Link href="/book_delivery" className="py-5">
             Book Delivery
           </Link>
         </div>
