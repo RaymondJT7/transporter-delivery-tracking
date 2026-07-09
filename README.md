@@ -2,7 +2,7 @@
 
 A full-stack delivery booking and tracking platform built with Next.js, PostgreSQL, and Prisma. Customers can book deliveries and track them in real time, drivers manage their assigned jobs, and admins run the whole operation from a dashboard.
 
-Built as a first-year software development internship project.
+
 
 ## Features
 
@@ -153,4 +153,4 @@ Register a normal account, then open Prisma Studio, find that user in the `User`
 
 ## License
 
-This project was built for educational/internship purposes.
+
